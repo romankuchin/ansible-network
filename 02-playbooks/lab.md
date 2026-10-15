@@ -1,39 +1,73 @@
 # Lab 2
 
-## Task 1. Simple playbook
+## Task 1. Pick up student ID
 
-Create playbook that will configure basic device settings:
+With the help of your imagination or 
 
-    - hostname
-    - ntp servers
-    - syslog servers
-    - service password-encryption
+    echo $(( RANDOM % 255 ))
 
-## Task 2. Variables
+choose random number as ID for the next tasks.
 
-Create file group_vars/all.yaml
+## Task 2. Collect info about the device
 
-Write there variables for:
+With the help of `ios_facts` module create a report about the sandbox router.
+Report should be in "reports/\<device_name\>.txt".
 
-    - ntp servers
-    - syslog servers
+Content of report:
 
-Create file host_vars/\<name_of_your_device\>.yaml
+    Hostname: XXX
+    Model: XXX
+    IOS type: XXX
+    IOS version: XXX
+    Serial number: XXX
 
-Write there variables for:
+## Task 3. Backup your config
 
-    - hostname
+Create a config backup before applying any changes to the device.
 
-## Task 3. Playbook with variables
+Backup files should be in folder "backups" with names
+"\<device_name\>.txt"
 
-Put variables into your playbook from task 1. Apply plays to group "routers", can be 1 or 2 devices in group, based on your resources.
+## Task 4. Configuration
 
-## Task 4. Make your playbook idemponent
+Create set of tasks that configure:
 
-If you didn't do any changes with variables or playbook, command
+    - your loopback interface (description and ip address)
+    - syslog server
+    - ntp server
+    - service timestamps for log and debug messages
+
+Pick syslog, ntp and loopback addresses from `10.{{ student_id }}.0.0/24`
+range.
+
+Define NTP server and syslog server IPs in group_vars/all.yaml.
+
+Use `ios_config` module.
+
+## Task 5. Make your playbook idempotent
+
+If you didn't change any variables or the playbook itself, this command
 
     ansible-playbook lab02.yaml
 
-shouldn't do any changes.
+shouldn't report any changes.
 
-Most probably you should adjust commands in playbook to make it idemponent.
+Most probably you will have to adjust the tasks in the playbook to make it
+idempotent.
+
+## Task 6. Save the configuration
+
+Save the running configuration only if something actually changed. Do nothing
+when there were no changes.
+
+## Task 7. Cleanup playbook
+
+Create `cleanup.yaml` that removes every object your playbook created and
+leaves the rest of the device untouched.
+
+Please run it at the end of every lab session.
+
+## Hints
+
+`ios_config` can manage a section of the configuration with `parents` and
+`lines`. Indentation of `lines` should match how the config looks on the device.

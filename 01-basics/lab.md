@@ -7,20 +7,20 @@ dozens of configuration management tools out there but we've chosen Ansible as
 one of the simplest one to get started with.
 
 You can run Ansible from your laptop directly in case you have Linux or MacOS.
-In case you have Windows, it's recommended to use
-[VirtualBox](https://www.virtualbox.org/wiki/Downloads) running Ubuntu as guest VM.
+In case you have Windows, use WSL.
 
 ## Task 1. Install Ansible
 
-For Linux or OS X, I recommend to use Python virtual env:
+It is recommended to use Python virtual env. Recommended Ansible version needs Python
+3.12 or newer:
 
     python3 -m venv ~/ansible-venv
-    ~/ansible-venv/bin/pip install ansible==8.0.0
+    ~/ansible-venv/bin/pip install ansible==14.3.1
     ~/ansible-venv/bin/ansible --version
 
 Last command should print something like
 
-    ansible [core 2.15.0]
+    ansible [core 2.21.3]
 
 Then, add this line to your `~/.profile` file (if the file is missing, create it)
 so you can use 'shorter' commands:
@@ -31,26 +31,28 @@ Logout and log in again. Now this command should also work:
 
     ansible --version
 
-## Task 2. Test access to your network device
+
+## Task 2. Get access to Cisco DevNet lab
+
+Login to https://devnetsandbox.cisco.com/DevNet using your netacad.com credentials.
+
+Request "Catalyst 8000 Always-On Sandbox". Read instructions carefully, especially part what is ok to do what is not in there.
 
 Ansible uses ssh for device management. If you can't ssh to device, Ansible can't either.
 
 Try:
 
-    ssh <username>@<managed_host>
+    ssh <username>@<host>
 
 You should be able to login.
-
-Note: By default ssh is disabled on Cisco devices. To enable it you need to execute few commands.
 
 ## Task 3. Create Ansible inventory
 
 Create inventory file in project folder.
 
-Create group "routers":
+The only content in inventory you need right now (list contains only 1 element):
 
-    [routers]
-    <ip_of_your_device>
+    <fqdn_of_your_device>
 
 ## Task 4. Create Ansible configuration file
 
@@ -61,14 +63,14 @@ Docs: https://docs.ansible.com/ansible/latest/reference_appendices/config.html
 Parameters that should be specified:
 
     - inventory
-    - ask_pass (if not using ssh keys)
+    - ask_pass
     - gathering
 
 ## Task 5. Ansible Ad-Hoc commands
 
-While Ansible using Ad-Hoc commands not the best practice to use them, sometimes they can be usefull for gathering info from devices.
+Using Ad-Hoc commands is not the best practice usually, but sometimes they can be useful for gathering info from devices.
 
-Write commands that will collect the following from group "routers":
+Write commands that will collect the following from group "all":
 
     - list of IP addresses
     - arp table
