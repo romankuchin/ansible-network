@@ -36,7 +36,7 @@ Logout and log in again. Now this command should also work:
 
 Login to https://devnetsandbox.cisco.com/DevNet using your netacad.com credentials.
 
-Request "Catalyst 8000 Always-On Sandbox". Read instructions carefully, especially part what is ok to do what is not in there.
+Request "Catalyst 8000 Always-On Sandbox" or "Catalyst 9000 Always-On Sandbox". Read instructions carefully, especially part what is ok to do what is not in there.
 
 Ansible uses ssh for device management. If you can't ssh to device, Ansible can't either.
 

@@ -47,6 +47,15 @@ have in lab 3.
 
 Apply it with `netconf_config`.
 
+Hint: without `get_filter` ansible will try to compare desired configuration against the whole config,
+which might not fit into single response. Better to compare only with subset of config with:
+
+    <native xmlns="http://cisco.com/ns/yang/Cisco-IOS-XE-native">
+        <interface>
+            <Loopback/>
+        </interface>
+    </native>
+
 ## Task 4. Configure OSPF over RESTCONF
 
 Create a Jinja2 template that renders the JSON payload for loopback
