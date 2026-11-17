@@ -32,11 +32,26 @@ Logout and log in again. Now this command should also work:
     ansible --version
 
 
-## Task 2. Get access to Cisco DevNet lab
+## Task 2. Get access to Cisco equipment
 
+Few options available:
+
+### Cisco DevNet
 Login to https://devnetsandbox.cisco.com/DevNet using your netacad.com credentials.
 
 Request "Catalyst 8000 Always-On Sandbox" or "Catalyst 9000 Always-On Sandbox". Read instructions carefully, especially part what is ok to do what is not in there.
+
+Alternatively "On-demand" sandboxes can be used, they require VPN install, but more stable.
+
+### Lab in ICO
+
+Make sure you use L3 switches for these labs: Cisco 3650 would be the correct choice.
+
+### Any other virtual environment
+
+If you already have your own virtual environment with Cisco switches - feel free to use it.
+
+For any case:
 
 Ansible uses ssh for device management. If you can't ssh to device, Ansible can't either.
 
